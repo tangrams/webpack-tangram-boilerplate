@@ -19,3 +19,7 @@ http-server
 ```
 
 This will create a local web server so that you can observe the app in action. You can open it in your browser at `http://localhost:8080`.
+
+### For more information
+
+See https://github.com/tangrams/tangram-play/wiki/Advanced-Tangram-for-front-end-engineers:-bundlers,-frameworks,-etc
