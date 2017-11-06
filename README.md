@@ -1,6 +1,6 @@
-# webpack-boilerplate
+# webpack-tangram-boilerplate
 
-This is a minimal example of bundling Tangram with Webpack, but without Babel or React, to illustrate the process by which Webpack module bundling works with Tangram in an otherwise-vanilla JS environment.
+This is a minimal example of bundling Tangram with Webpack, but without Babel or React, to illustrate the process by which Webpack module bundling works with Tangram in an otherwise-vanilla JS environment. (Compare: https://github.com/tangrams/react-webpack-tangram-boilerplate)
 
 To try this out, clone this repository to your local environment, then run:
 
