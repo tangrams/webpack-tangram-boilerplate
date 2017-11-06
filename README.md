@@ -5,8 +5,9 @@ This is a minimal example of bundling Tangram with Webpack, but without Babel or
 To try this out, clone this repository to your local environment, then run:
 
 ```sh
+cd webpack-tangram-boilerplate
 npm install
-npm run build
+webpack
 ```
 
 This will create a JavaScript bundle called `bundle.js`.
@@ -14,7 +15,7 @@ This will create a JavaScript bundle called `bundle.js`.
 Then run:
 
 ```sh
-npm start
+http-server
 ```
 
 This will create a local web server so that you can observe the app in action. You can open it in your browser at `http://localhost:8080`.
