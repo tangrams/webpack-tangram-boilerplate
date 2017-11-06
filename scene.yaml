@@ -22,7 +22,7 @@ layers:
         data: { source: mapzen }
         draw:
             polygons:
-                order: function() { return feature.sort_rank; }
+                order: 0
                 color: '#ddeeee'
 
     landuse:

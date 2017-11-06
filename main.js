@@ -47,9 +47,9 @@ var map = (function () {
     window.addEventListener('load', function () {
         // Scene initialized
         layer.on('init', function() {
+            MPZN.bug();
         });
         layer.addTo(map);
-        console.log(MPZN)
     });
 
     return map;
