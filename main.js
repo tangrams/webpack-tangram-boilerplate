@@ -23,9 +23,7 @@ var map = (function () {
 
     /*** Map ***/
 
-    var map = L.map('map',
-        {"keyboardZoomOffset" : .05}
-    );
+    var map = L.map('map');
 
     var layer = Tangram.leafletLayer({
         scene: 'scene.yaml',
@@ -36,6 +34,7 @@ var map = (function () {
     var scene = layer.scene;
     window.scene = scene;
 
+    // update hash on navigation - uses leaflet-hash.js
     var hash = new L.Hash(map);
 
     // setView expects format ([lat, long], zoom)
@@ -45,10 +44,10 @@ var map = (function () {
 
     window.addEventListener('load', function () {
         // Scene initialized
-        layer.on('init', function() {
-            MPZN.bug();
+        window.layer.on('init', function() {
+            // MPZN.bug();
         });
-        layer.addTo(map);
+        window.layer.addTo(map);
     });
 
     return map;
