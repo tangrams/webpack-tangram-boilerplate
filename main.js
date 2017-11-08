@@ -1,9 +1,8 @@
 /*jslint browser: true*/
 /*global Tangram, gui */
+import L from 'leaflet';
+import Tangram from 'tangram';
 import leafletHash from './leaflet-hash.js';
-var L = require('leaflet');
-var Tangram = require('tangram');
-L.Icon.Default.imagePath = 'node_modules/leaflet/dist/images/';
 
 var map = (function () {
     'use strict';

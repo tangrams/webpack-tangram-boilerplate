@@ -1,4 +1,4 @@
-var L = require('leaflet');
+import L from 'leaflet';
 
 (function(window) {
 
