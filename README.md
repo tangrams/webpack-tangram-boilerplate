@@ -22,4 +22,4 @@ This will create a local web server so that you can observe the app in action. Y
 
 ### For more information
 
-See https://github.com/tangrams/tangram-play/wiki/Advanced-Tangram-for-front-end-engineers:-bundlers,-frameworks,-etc
+See https://github.com/tangrams/tangram-play/wiki/Using-Tangram-with-Bundlers-&-Frameworks
