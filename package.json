@@ -10,7 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "leaflet": "^1.2.0",
-    "tangram": "^0.14.1"
+    "tangram": "^0.15.4"
   },
   "devDependencies": {
     "webpack": "^4.8.3",
