@@ -1,55 +1,37 @@
-/*jslint browser: true*/
-/*global Tangram, gui */
 import L from 'leaflet';
 import Tangram from 'tangram';
 import leafletHash from './leaflet-hash.js';
 
-var map = (function () {
-    'use strict';
+const map = L.map('map');
 
-    var map_start_location = [40.70531887544228, -74.00976419448853, 15]; // NYC
-
-    /*** URL parsing ***/
-
-    // leaflet-style URL hash pattern:
-    // #[zoom],[lat],[lng]
-    var url_hash = window.location.hash.slice(1, window.location.hash.length).split('/');
-
-    if (url_hash.length == 3) {
-        map_start_location = [url_hash[1],url_hash[2], url_hash[0]];
-        // convert from strings
-        map_start_location = map_start_location.map(Number);
-    }
-
-    /*** Map ***/
-
-    var map = L.map('map');
-
-    var layer = Tangram.leafletLayer({
-        scene: 'scene.yaml',
+const layer = Tangram
+    .leafletLayer({
+        // scene: 'scene.yaml',
+        scene: {
+            import: [
+                'https://www.nextzen.org/carto/bubble-wrap-style/10/bubble-wrap-style.zip',
+                'https://www.nextzen.org/carto/bubble-wrap-style/10/themes/label-10.zip',
+                'https://www.nextzen.org/carto/bubble-wrap-style/10/themes/bubble-wrap-road-shields-usa.zip',
+                'https://www.nextzen.org/carto/bubble-wrap-style/10/themes/bubble-wrap-road-shields-international.zip'
+            ],
+            global: {
+                sdk_api_key: 'NaqqS33fTUmyQcvbuIUCKA'
+            }
+        },
         attribution: '<a href="https://mapzen.com/tangram" target="_blank">Tangram</a> | &copy; OSM contributors | <a href="https://mapzen.com/" target="_blank">Mapzen</a>'
-    });
+    })
+    .addTo(map);
 
-    window.layer = layer;
-    var scene = layer.scene;
-    window.scene = scene;
+// Set starting location
+// Try to get location from URL, with leaflet-style hash pattern: #[zoom],[lat],[lng]
+let startLocation = [[40.70531887544228, -74.00976419448853], 15]; // default location, NYC
+const urlHash = window.location.hash.slice(1, window.location.hash.length).split('/').map(Number);
+if (urlHash.length == 3) {
+    startLocation = [[urlHash[1], urlHash[2]], urlHash[0]];
+}
 
-    // update hash on navigation - uses leaflet-hash.js
-    var hash = new L.Hash(map);
+map.setView(startLocation[0], startLocation[1]); // setView expects format ([lat, long], zoom)
+// map.setView([40.70531887544228, -74.00976419448853], 15);
 
-    // setView expects format ([lat, long], zoom)
-    map.setView(map_start_location.slice(0, 3), map_start_location[2]);
-
-    /***** Render loop *****/
-
-    window.addEventListener('load', function () {
-        // Scene initialized
-        window.layer.on('init', function() {
-            // MPZN.bug();
-        });
-        window.layer.addTo(map);
-    });
-
-    return map;
-
-}());
+// update hash on navigation - uses leaflet-hash.js
+const hash = new L.Hash(map);
