@@ -6,7 +6,7 @@
   "scripts": {
     "start": "npm run build && npm run serve",
     "build": "webpack --mode production",
-    "serve": "http-server -p 8000 --cors -c-1"
+    "serve": "http-server -p 8080 --cors -c-1"
   },
   "author": "",
   "license": "ISC",
