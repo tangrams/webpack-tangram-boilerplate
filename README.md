@@ -7,19 +7,7 @@ To try this out, clone this repository to your local environment, then run:
 ```sh
 cd webpack-tangram-boilerplate
 npm install
-webpack
+npm start
 ```
 
-This will create a JavaScript bundle called `bundle.js`.
-
-Then run:
-
-```sh
-http-server
-```
-
-This will create a local web server so that you can observe the app in action. You can open it in your browser at `http://localhost:8080`.
-
-### For more information
-
-See https://github.com/tangrams/tangram-play/wiki/Using-Tangram-with-Bundlers-&-Frameworks
+This will create a JavaScript bundle called `dist/bundle.js` using `webpack`, and start a local web server with `http-server` so that you can observe the app in action. You can open it in your browser at `http://localhost:8080`.
