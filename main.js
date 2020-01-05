@@ -1,12 +1,12 @@
 import L from 'leaflet';
 import Tangram from 'tangram';
-import leafletHash from './leaflet-hash.js';
+import leafletHash from 'leaflet-hash';
 
 const map = L.map('map');
 
 const layer = Tangram
     .leafletLayer({
-        // scene: 'scene.yaml',
+        // scene: 'scene.yaml', // simple demo scene
         scene: {
             import: [
                 'https://www.nextzen.org/carto/bubble-wrap-style/10/bubble-wrap-style.zip',
@@ -31,7 +31,6 @@ if (urlHash.length == 3) {
 }
 
 map.setView(startLocation[0], startLocation[1]); // setView expects format ([lat, long], zoom)
-// map.setView([40.70531887544228, -74.00976419448853], 15);
 
 // update hash on navigation - uses leaflet-hash.js
 const hash = new L.Hash(map);

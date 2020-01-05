@@ -1,43 +1,30 @@
-cameras:
-    camera1:
-        type: perspective
-
-lights:
-    light1:
-        type: directional
-        direction: [0, 1, -.5]
-        diffuse: .3
-        ambient: 1
+scene:
+    background:
+        color: '#ddeeee'
 
 sources:
     nextzen:
-        type: TopoJSON
-        url: https://tile.nextzen.org/tilezen/vector/v1/256/all/{z}/{x}/{y}.topojson
+        type: MVT
+        url: https://tile.nextzen.org/tilezen/vector/v1/512/all/{z}/{x}/{y}.mvt
         url_params:
-            api_key: tsINU1vsQnKLU1jjCimtVw
+            api_key: NaqqS33fTUmyQcvbuIUCKA
+        tile_size: 512
         max_zoom: 16
 
 layers:
-    earth:
-        data: { source: nextzen }
-        draw:
-            polygons:
-                order: 0
-                color: '#ddeeee'
-
     landuse:
         data: { source: nextzen }
         draw:
             polygons:
                 order: function() { return feature.sort_rank; }
-                color: '#aaffaa'
+                color: lightgreen
 
     water:
         data: { source: nextzen }
         draw:
             polygons:
                 order: function() { return feature.sort_rank; }
-                color: '#88bbee'
+                color: lightblue
 
     roads:
         data: { source: nextzen }
@@ -46,28 +33,12 @@ layers:
         draw:
             lines:
                 order: function() { return feature.sort_rank; }
-                color: gray
-                width: 8
-                cap: round
-        highway:
-            filter:
-                kind: highway
-            draw:
-                lines:
-                    order: function() { return feature.sort_rank; }
-                    color: '#cc6666'
-                    width: 12
-                    outline:
-                        color: grey
-                        width: 1.5
-        minor_road:
-            filter:
-                kind: minor_road
-            draw:
-                lines:
-                    order: function() { return feature.sort_rank; }
-                    color: lightgrey
-                    width: 5
+                color: [.6, .6, .6]
+                width: [[0, 2px], [14, 2px], [16, 4px], [18, 6px]]
+                outline:
+                    color: white
+                    width: [[14, 0px], [16, 1px]]
+                    order: 350
 
     buildings:
         data: { source: nextzen }
@@ -77,12 +48,35 @@ layers:
                 color: |
                     function () {
                         var h = feature.height || 20;
-                        h = Math.min((h + 50)/ 255, .8); // max brightness: .8
+                        h = Math.min((h + 50)/ 255, 1); // max brightness: 1
                         h = Math.max(h, .4); // min brightness: .4
-                        return [h, h, h];
+                        h = (h - 0.4) * -1 + 1; // flip brightness
+                        return [h, h * 0.4, h * 0.7];
                     }
         3d-buildings:
             filter: { $zoom: { min: 15 } }
             draw:
                 polygons:
                     extrude: function () { return feature.height > 20 || $zoom >= 16; }
+
+    places:
+        data: { source: nextzen }
+        filter: function() { return ($zoom >= feature.min_zoom && (feature.max_zoom == null || $zoom <= feature.max_zoom)); }
+        draw:
+            text:
+                visible: global.labels
+                priority: function() { return 1 - 1/feature.min_zoom; } # give higher priority to lower min_zoom
+                repeat_distance: 512px # filter out duplicate place names
+                text_source: name
+                font:
+                    family: Helvetica
+                    fill: black
+                    size: |
+                        function() {
+                            if (feature.min_zoom == null) return 12;
+                            var p = feature.population_rank || 7;
+                            return Math.min(
+                                12 + (p - 7) + Math.pow(1.5, Math.max($zoom - feature.min_zoom)),
+                                24);
+                        }
+                    weight: bold
